@@ -1,20 +1,577 @@
-body{
-    font-family: Arial;
-    padding:20px;
+/* =========================================
+   1. Global Reset & Variables
+========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-input{
-    padding:10px;
-    margin:5px;
+:root {
+    --bg-main: #F4F7F6;       /* Slightly deeper background to make cards pop */
+    --bg-card: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --border-color: #D1D5DB;  /* Darker border for better visibility */
+    
+    --brand-primary: #4F46E5;
+    --brand-hover: #4338CA;
+    --brand-light: #EEF2FF;
+    
+    --radius-lg: 12px;
+    --radius-md: 8px;
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05); /* Softer, premium shadow */
+    --transition: all 0.2s ease;
 }
 
-button{
-    padding:10px;
-    cursor:pointer;
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
-.task{
-    border:1px solid #ccc;
-    padding:10px;
-    margin-top:10px;
+/* =========================================
+   2. Login & Register Pages
+========================================= */
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 2.5rem 2rem;
+}
+
+/* Fixing the header and logo mark */
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo-placeholder {
+    width: 50px;
+    height: 50px;
+    background: var(--brand-light);
+    color: var(--brand-primary);
+    border-radius: 50%; /* Made it a perfect circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 1rem auto; /* Centers the circle */
+}
+
+.login-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.login-header p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* Clean spacing between inputs */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.signup-prompt {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.signup-prompt a {
+    color: var(--brand-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.signup-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   3. Inputs & Buttons (Global)
+========================================= */
+.modern-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: var(--transition);
+}
+
+.modern-input:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px var(--brand-light);
+}
+
+.btn-primary {
+    background-color: var(--brand-primary);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: var(--brand-hover);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #fff;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background-color: #F9FAFB;
+    border-color: #9CA3AF;
+}
+
+.w-full {
+    width: 100%;
+}
+
+/* =========================================
+   4. Dashboard Layout (Task Manager)
+========================================= */
+.app-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.app-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.app-header p {
+    color: var(--text-secondary);
+}
+
+.form-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 1.5rem;
+    border: 1px solid #E5E7EB;
+}
+
+.input-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.toolbar-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.input-group {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #E5E7EB;
+    margin: 1.5rem 0;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* =========================================
+   5. THE TASK LIST FIX (No JS Changes Required)
+========================================= */
+#taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+#taskList > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap; /* Forces everything on one line on desktop */
+    padding: 1rem 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* 1st JS Element: The Title */
+#taskList > div > *:nth-child(1) {
+    flex: 0 0 15%; /* Fixed 15% width */
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 2nd JS Element: The Description */
+#taskList > div > *:nth-child(2) {
+    flex: 1 1 auto; /* Takes up remaining middle space */
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    padding: 0 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 3rd JS Element: The Status */
+#taskList > div > *:nth-child(3) {
+    flex: 0 0 auto;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-right: 1rem;
+}
+
+/* 4th, 5th, 6th JS Elements: The Buttons */
+#taskList > div > button {
+    flex: 0 0 auto;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    color: var(--text-primary);
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: var(--transition);
+}
+
+#taskList > div > button:hover {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+/* =========================================
+   6. Mobile Responsiveness
+========================================= */
+@media (max-width: 768px) {
+    .input-section, .toolbar-section {
+        flex-direction: column;
+    }
+    
+    .input-group, .modern-input, .btn-primary {
+        width: 100%;
+    }
+    
+    /* On tiny screens, allow the task list to stack neatly */
+    #taskList > div {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    #taskList > div > *:nth-child(1),
+    #taskList > div > *:nth-child(2) {
+        flex: 1 1 100%;
+        padding: 0;
+    }
+    
+    #taskList > div > button {
+        margin-left: 0;
+        margin-right: 0.5rem;
+        margin-top: 0.5rem;
+    }
+}
+/* =========================================
+   7. Landing Page Specific Styles
+========================================= */
+.landing-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0;
+    background-color: var(--bg-main);
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 5%;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-size: 25px;
+    color: var(--text-primary);
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-buttons a {
+    text-decoration: none;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 4rem 1rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: slideInTask 0.4s ease-out;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: var(--brand-light);
+    color: var(--brand-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.025em;
+}
+
+.hero-section p {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+}
+
+.hero-buttons a {
+    text-decoration: none;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem 0;
+    animation: slideInTask 0.5s ease-out;
+}
+
+.feature-card {
+    background: var(--bg-card);
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--brand-primary);
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Footer */
+.landing-footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.25rem;
+    }
+    .hero-section p {
+        font-size: 1rem;
+    }
+    .navbar {
+        padding: 1rem 5%;
+    }
+    .nav-logo {
+        font-size: 1.1rem;
+    }
+}
+
+/* =========================================
+   8. Dashboard Navigation Bar
+========================================= */
+.dashboard-body {
+    background-color: var(--bg-main);
+    padding: 0; /* Removed padding so navbar touches the top */
+    display: block; /* Overrides the flex centering from login */
+}
+
+.dashboard-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-card);
+    padding: 1rem 5%;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    color: var(--brand-primary);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    background-color: var(--brand-light);
+    color: var(--brand-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+/* Fix wrapper spacing since body padding was removed */
+.dashboard-body .app-wrapper {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }

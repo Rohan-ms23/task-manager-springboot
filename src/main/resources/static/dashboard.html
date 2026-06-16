@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Task Manager</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="dashboard-body">
+    <nav class="dashboard-nav">
+      <div class="nav-left">
+        <div class="nav-logo">
+          <span class="logo-icon">✓</span> Task Manager
+        </div>
+        <a href="index.html" class="nav-link">Home</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="user-profile">
+          <div class="avatar">👤</div>
+          <span id="userNameDisplay">My Account</span>
+        </div>
+        <button class="btn-secondary btn-sm" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <div class="app-wrapper">
+      <header class="app-header">
+        <h1>My Dashboard</h1>
+        <p>Manage your personal tasks efficiently.</p>
+      </header>
+
+      <div class="form-card">
+        <div class="form">
+          <div class="input-section">
+            <input
+              type="text"
+              id="title"
+              class="modern-input"
+              placeholder="Task Title"
+            />
+            <input
+              type="text"
+              id="description"
+              class="modern-input"
+              placeholder="Description"
+            />
+            <button class="btn-primary" onclick="addTask()">Add Task</button>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="toolbar-section">
+            <div class="input-group">
+              <input
+                type="text"
+                id="searchBox"
+                class="modern-input"
+                placeholder="Search Task"
+              />
+              <button class="btn-secondary" onclick="searchTask()">
+                Search
+              </button>
+            </div>
+
+            <div class="input-group">
+              <select id="statusFilter" class="modern-input select-input">
+                <option value="All">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
+              <button class="btn-secondary" onclick="filterTasks()">
+                Filter
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-list-container">
+        <h2 class="section-title">Your Tasks</h2>
+        <div id="taskList"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

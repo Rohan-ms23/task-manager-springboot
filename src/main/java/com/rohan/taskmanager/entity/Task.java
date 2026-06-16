@@ -60,5 +60,8 @@ public class Task {
     public void setStatus(String status) {
         this.status = status;
     }
+    private String userEmail;
 
+    public String getUserEmail() { return userEmail; }
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 }

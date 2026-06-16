@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="login-body">
 
-<h2>User Registration</h2>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo-placeholder">✓</div>
+                <h2>User Registration</h2>
+                <p>Create a new account to get started.</p>
+            </div>
 
-<input type="text" id="username" placeholder="Username">
-<br><br>
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="modern-input" placeholder="Username">
+                </div>
 
-<input type="email" id="email" placeholder="Email">
-<br><br>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="modern-input" placeholder="Email">
+                </div>
 
-<input type="password" id="password" placeholder="Password">
-<br><br>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="modern-input" placeholder="Password">
+                </div>
 
-<button onclick="register()">
-Register
-</button>
+                <button class="btn-primary w-full" onclick="register()">
+                    Register
+                </button>
+            </div>
+            
+            <p class="signup-prompt">Already have an account? <a href="login.html">Log in</a></p>
+        </div>
+    </div>
 
 <script>
-
 async function register(){
 
     const user = {
@@ -46,7 +67,6 @@ async function register(){
     alert("User Registered!");
     console.log(result);
 }
-
 </script>
 
 </body>
