@@ -16,6 +16,7 @@
         <div class="nav-logo">
           <span class="logo-icon">✓</span> Task Manager
         </div>
+        <a href="profile.html" class="nav-link"> Profile </a>
         <a href="index.html" class="nav-link">Home</a>
       </div>
 
@@ -35,6 +36,22 @@
       </header>
 
       <div class="form-card">
+        <div class="stats-container">
+          <div class="stat-card">
+            <h3>Total Tasks</h3>
+            <p id="totalTasks">0</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>Completed</h3>
+            <p id="completedTasks">0</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>Pending</h3>
+            <p id="pendingTasks">0</p>
+          </div>
+        </div>
         <div class="form">
           <div class="input-section">
             <input
@@ -49,6 +66,15 @@
               class="modern-input"
               placeholder="Description"
             />
+            <select id="priority" class="modern-input">
+              <span class="priority-badge ${priorityClass}">
+                ${task.priority}
+              </span>
+              <option value="Low">Low Priority</option>
+              <option value="Medium">Medium Priority</option>
+              <option value="High">High Priority</option>
+              <input type="date" id="dueDate" class="modern-input" />
+            </select>
             <button class="btn-primary" onclick="addTask()">Add Task</button>
           </div>
 

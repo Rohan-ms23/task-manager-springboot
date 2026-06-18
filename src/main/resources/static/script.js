@@ -6,23 +6,22 @@ const currentUser = localStorage.getItem("currentUser");
 const token = localStorage.getItem("token");
 
 if (
-    window.location.pathname.includes("dashboard.html")
-    && (!currentUser || !token)
+  window.location.pathname.includes("dashboard.html") &&
+  (!currentUser || !token)
 ) {
-    window.location.href = "login.html";
+  window.location.href = "login.html";
 }
 
 if (currentUser && document.getElementById("userNameDisplay")) {
-    document.getElementById("userNameDisplay").innerText =
+  document.getElementById("userNameDisplay").innerText =
     currentUser.split("@")[0];
 }
 
 function logout() {
+  localStorage.removeItem("currentUser");
+  localStorage.removeItem("token");
 
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("token");
-
-    window.location.href = "login.html";
+  window.location.href = "login.html";
 }
 
 // ==========================================
@@ -36,7 +35,7 @@ async function loadTasks() {
 
   // FRONTEND FILTER: Only show tasks that belong to the logged-in user
   if (currentUser) {
-      tasks = tasks.filter(task => task.userEmail === currentUser);
+    tasks = tasks.filter((task) => task.userEmail === currentUser);
   }
 
   displayTasks(tasks);
@@ -45,25 +44,55 @@ async function loadTasks() {
 function displayTasks(tasks) {
   let html = "";
 
+  const today = new Date();
+
   tasks.forEach((task) => {
-    // Note: I cleaned up the HTML structure here so it matches the perfect 
-    // CSS grid alignment we set up in styles.css earlier!
+    // Safely determine priority class (fallback to "low")
+    const priorityClass = task.priority ? task.priority.toLowerCase() : "low";
+
+    const overdue =
+      task.dueDate &&
+      new Date(task.dueDate) < today &&
+      task.status !== "Completed";
+
     html += `
-        <div>
-            <span title="${task.title}"><b>${task.title}</b></span>
-            <span title="${task.description}">${task.description}</span>
-            <span>Status: ${task.status}</span>
-            
-            <button class="complete" onclick="completeTask(${task.id})">Complete</button>
-            <button class="edit" onclick="editTask(${task.id}, '${task.title}', '${task.description}')">Edit</button>
-            <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
-        </div>
-    `;
+<div class="task-card ${overdue ? "overdue" : ""}">
+
+    <div class="task-header">
+        <h3>${task.title}</h3>
+        <span class="priority-badge ${priorityClass}">
+    ${task.priority}
+</span>
+    ${overdue ? '<span class="overdue-badge">⚠ Overdue</span>' : ""}
+    </div>
+
+    <p>${task.description}</p>
+
+    <div class="task-info">
+        <span>📅 ${task.dueDate || "No Due Date"}</span>
+        <span>📌 ${task.status}</span>
+    </div>
+
+    <div class="task-actions">
+        <button class="complete" onclick="completeTask(${task.id})">
+            Complete
+        </button>
+
+        <button class="edit" onclick="editTask(${task.id}, '${task.title}', '${task.description}')">
+            Edit
+        </button>
+
+        <button class="delete" onclick="deleteTask(${task.id})">
+            Delete
+        </button>
+    </div>
+
+</div>
+`;
   });
 
   document.getElementById("taskList").innerHTML = html;
 }
-
 async function addTask() {
   const title = document.getElementById("title").value;
   const description = document.getElementById("description").value;
@@ -72,7 +101,9 @@ async function addTask() {
     title: title,
     description: description,
     status: "Pending",
-    userEmail: currentUser // <-- CRITICAL: Tell the backend whose task this is!
+    priority: document.getElementById("priority").value,
+    dueDate: document.getElementById("dueDate").value,
+    userEmail: currentUser,
   };
 
   await fetch(API_URL, {
@@ -113,7 +144,7 @@ async function editTask(id, oldTitle, oldDescription) {
   const task = {
     title: title,
     description: description,
-    userEmail: currentUser // Keep the ownership when updating
+    userEmail: currentUser, // Keep the ownership when updating
   };
 
   await fetch(API_URL + "/" + id, {
@@ -134,7 +165,7 @@ async function searchTask() {
 
   // Filter search results for current user only
   if (currentUser) {
-      tasks = tasks.filter(task => task.userEmail === currentUser);
+    tasks = tasks.filter((task) => task.userEmail === currentUser);
   }
 
   displayTasks(tasks);
@@ -153,11 +184,25 @@ async function filterTasks() {
 
   // Filter status results for current user only
   if (currentUser) {
-      tasks = tasks.filter(task => task.userEmail === currentUser);
+    tasks = tasks.filter((task) => task.userEmail === currentUser);
   }
 
   displayTasks(tasks);
 }
 
+async function loadStats() {
+  const response = await fetch(
+    "http://localhost:8081/tasks/stats?userEmail=" + currentUser,
+  );
+  const stats = await response.json();
+
+  document.getElementById("totalTasks").innerText = stats.total;
+
+  document.getElementById("completedTasks").innerText = stats.completed;
+
+  document.getElementById("pendingTasks").innerText = stats.pending;
+}
+
 // Initial load
 loadTasks();
+loadStats();

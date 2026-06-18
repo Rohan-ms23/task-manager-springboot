@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+
+    <nav class="dashboard-nav">
+
+        <div class="nav-left">
+            <div class="nav-logo">
+                ✓ Task Manager
+            </div>
+
+            <a href="dashboard.html" class="nav-link">
+                Dashboard
+            </a>
+        </div>
+
+        <div class="nav-right">
+            <button class="btn-secondary"
+                    onclick="logout()">
+                Logout
+            </button>
+        </div>
+
+    </nav>
+
+    <div class="profile-container">
+
+        <div class="profile-card">
+
+            <div class="profile-avatar">
+                👤
+            </div>
+
+            <h2 id="profileName">
+                User
+            </h2>
+
+            <p id="profileEmail">
+                user@email.com
+            </p>
+
+            <hr>
+
+            <div class="profile-stats">
+
+                <div class="stat-box">
+                    <h3 id="totalTasks">
+                        0
+                    </h3>
+                    <p>Total Tasks</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3 id="completedTasks">
+                        0
+                    </h3>
+                    <p>Completed</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3 id="pendingTasks">
+                        0
+                    </h3>
+                    <p>Pending</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="profile.js"></script>
+
+</body>
+</html>

@@ -16,7 +16,7 @@ public class Task {
 
     @NotBlank(message = "Description is required")
     private String description;
-    
+
     private String status;
 
     public Task() {
@@ -60,8 +60,35 @@ public class Task {
     public void setStatus(String status) {
         this.status = status;
     }
+
     private String userEmail;
 
-    public String getUserEmail() { return userEmail; }
-    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    private String priority;
+
+    public String getpriority() {
+        return priority;
+    }
+
+    public void setpriority(String priority) {
+        this.priority = priority;
+
+    }
+
+    private String dueDate;
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDuedate(String dueDate) {
+        this.dueDate = dueDate;
+    }
 }
